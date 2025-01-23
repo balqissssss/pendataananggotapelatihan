@@ -3,41 +3,80 @@
 @section('judulh1', 'Laporan/Rekap Data Pelatihan')
 
 @section('konten')
-
-
-<!-- Rekap Data Pelatihan -->
 <div class="col-md-12">
-    <div class="card card-info">    <div class="card-header">
-        <h3 class="card-title">Rekap Data Pelatihan</h3>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table id="example2" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama peserta</th>
-                        <th>dibuat oleh</th>
-                        <th>Tanggal Pelatihan</th>
-                        <th>Nama Pelatihan</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($pelatihan as $item)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->nama }}</td>
-                            <td>{{ $item->user->name }}</td>
-                            <td>{{ $item->created_at->format('d-m-Y') }}</td>
-                            <td>{{ $item->pelatihan->nama_pelatihan }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+    <!-- Pemberitahuan -->
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
         </div>
+    @elseif(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @elseif(session('warning'))
+        <div class="alert alert-warning">
+            {{ session('warning') }}
+        </div>
+    @endif
+
+
+    <!-- Rekap Data Pelatihan -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Data Laporan</h3>
+            <form method="GET" action="{{ route('laporan.index') }}" class="form-inline float-right">
+                <div class="form-group">
+                    <label for="tahun" class="mr-2">Pilih Tahun:</label>
+                    <select name="tahun" id="tahun" class="form-control">
+                        @foreach(range(date('Y'), date('Y') - 10) as $tahun)
+                            <option value="{{ $tahun }}" {{ request('tahun') == $tahun ? 'selected' : '' }}>
+                                {{ $tahun }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group ml-3">
+                    <label for="bulan" class="mr-2">Pilih Bulan:</label>
+                    <select name="bulan" id="bulan" class="form-control">
+                        <option value="">Semua Bulan</option>
+                        @foreach(range(1, 12) as $bulan)
+                            <option value="{{ $bulan }}" {{ request('bulan') == $bulan ? 'selected' : '' }}>
+                                {{ \Carbon\Carbon::create()->month($bulan)->translatedFormat('F') }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary ml-2">Cari</button>
+            </form>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example2" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama peserta</th>
+                            <th>dibuat oleh</th>
+                            <th>Tanggal Pelatihan</th>
+                            <th>Nama Pelatihan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($pelatihan as $item)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->nama }}</td>
+                                <td>{{ $item->user->name }}</td>
+                                <td>{{ $item->tanggal }}</td>
+                                <td>{{ $item->pelatihan->nama_pelatihan }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /.card-body -->
     </div>
-    <!-- /.card-body -->
-</div>
 </div>
 <!-- /.card -->
 @endsection
@@ -62,7 +101,7 @@
 
 @section('tambahScript')
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $("#example2").DataTable({
             "responsive": true,
             "lengthChange": true,

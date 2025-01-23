@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('judulh1', 'Admin - Edit Product')
+@section('judulh1', 'Admin - Edit data pelatihan')
 
 @section('konten')
 <div class="col-md-6">
@@ -40,6 +40,16 @@
                 <div class="form-group">
                     <label for="no_hp">No HP</label>
                     <input type="number" class="form-control" id="no_hp" name="no_hp" value="{{ $datapelatihan->no_hp }}">
+
+                </div>
+                <div class="form-group">
+                    <label for="pelatihan_id"> pelatihan</label>
+<input type="number" class="form-control" id="pelatihan_id" name="pelatihan_id" value="{{ $datapelatihan->pelatihan_id }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="tanggal"> tanggal</label>
+
+<input type="date" class="form-control" id="tanggal" name="tanggal" value="{{ $datapelatihan->tanggal }}">
                 </div>
             </div>
             <!-- /.card-body -->

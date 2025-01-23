@@ -15,6 +15,7 @@ class datapelatihan extends Model
         'nik',
         'alamat',
         'no_hp',
+        'tanggal',
     ];
     public function user()
 {

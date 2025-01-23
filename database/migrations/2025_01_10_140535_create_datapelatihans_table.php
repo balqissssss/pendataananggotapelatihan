@@ -19,16 +19,15 @@ return new class extends Migration
             $table->string('nik');
             $table->string('alamat');
             $table->string('no_hp');
+            $table->date('tanggal');
             $table->timestamps();
         });
         Schema::table('datapelatihans', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-
-});
+        });
         Schema::table('datapelatihans', function (Blueprint $table) {
             $table->foreign('pelatihan_id')->references('id')->on('pelatihans')->onUpdate('cascade')->onDelete('cascade');
-
-});
+        });
     }
 
     /**

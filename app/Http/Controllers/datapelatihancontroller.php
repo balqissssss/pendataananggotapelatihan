@@ -36,8 +36,9 @@ class datapelatihancontroller extends Controller
             "nik" => "required",
             "alamat" => "required",
             "no_hp" => "required",
-        ]);
+            "tanggal" => "required",
 
+        ]);
         datapelatihan::create([
             "user_id" => auth()->user()->id,
             "pelatihan_id"=> $request->pelatihan_id,
@@ -45,14 +46,17 @@ class datapelatihancontroller extends Controller
             "nik" => $request->nik,
             "alamat" => $request->alamat,
             "no_hp" => $request->no_hp,
+            "tanggal" => $request->tanggal,
         ]);
         return redirect()->route('datapelatihan.index')->with('success', 'Data datapelatihan Berhasil Ditambahkan');
     }
 
     public function edit(datapelatihan $datapelatihan): View
     {
+        $pelatihan = pelatihan::where("status","=","aktif")->get();
         return view('datapelatihan.edit', compact('datapelatihan'))->with([
             "title" => "Ubah Data datapelatihan",
+            "pelatihan" => $pelatihan
         ]);
     }
 
@@ -64,6 +68,7 @@ class datapelatihancontroller extends Controller
             "nik" => "required",
             "alamat" => "required",
             "no_hp" => "required",
+            "tanggal" => "required",
         ]);
 
         $datapelatihan->update([
@@ -73,6 +78,7 @@ class datapelatihancontroller extends Controller
             "nik" => $request->nik,
             "alamat" => $request->alamat,
             "no_hp" => $request->no_hp,
+            "tanggal" => $request->tanggal,
         ]);
         return redirect()->route('datapelatihan.index')->with('updated', 'Data datapelatihan Berhasil Diubah');
     }

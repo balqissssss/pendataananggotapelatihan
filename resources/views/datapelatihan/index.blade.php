@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 @endsection
 
-@section('judulh1','Admin - Product')
+@section('judulh1','Admin - Pelatihan')
 
 @section('konten')
 
@@ -17,7 +17,7 @@
 <div class="col-md-12">
     <div class="card card-info">
         <div class="card-header">
-            <h2 class="card-title">Data Customer</h2>
+            <h2 class="card-title">Data Pelatihan</h2>
             <a type="button" class="btn btn-success float-right" href="{{ route('datapelatihan.create') }}">
                 <i class=" fas fa-plus"></i> tambah data pelatihan
             </a>
